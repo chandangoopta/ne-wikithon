@@ -1,16 +1,26 @@
 #!/bin/bash
 
-# convert number
-	sed -f expnum string > strnum
+function Usage {
+	echo "Argument Missing";
+	echo -e "Usage: \ten-tlrate-ne [OPTION]... [STRING]";
+	echo -e "\n\t-f inputfile"
+}
 
-# literal scan
-	sed -f expfull strnum > string1
+# checking arguments
+	if [ $# -eq 0 ]; then
+		Usage;
+		exit;
+	fi
 
-# double modifer
-	sed -f expmod string1 > string2
+# latin to devnagari
+	case $1 in
+	-f) sed -f exp_latin $2 > /tmp/dev.txt ;;
+	*) echo $@ | sed -f exp_latin > /tmp/dev.txt ;;
+	esac
 
-# full the half thing
-	sed -f exphalf string2
+# modifer
+	sed -f exp_dev /tmp/dev.txt > /tmp/tran.txt
 
-rm string1 strnum string2
+# fixes
+	sed -f exp_fixes /tmp/tran.txt
 

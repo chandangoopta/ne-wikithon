@@ -1,7 +1,7 @@
-all:
-	./main.sh
+all: test
 
-clean:
-	rm string2
-	rm strnum
+test:
+	./main.sh string.txt
 
+gui:
+	./gui.sh
